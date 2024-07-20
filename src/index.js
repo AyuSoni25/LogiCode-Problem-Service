@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const { PORT } = require('./config/server.config')
 
 const apiRouter = require('./routes')
+const connectToDB = require('./config/db.config')
 const app = express()
 
 // Specifying the type of requests which can come to server, so that it can know how to handle the request.
@@ -21,6 +22,8 @@ app.get('/ping', (req, res)=>{
 })
 
 // Listening to the defined PORT 
-app.listen(PORT, () => {
+app.listen(PORT, async() => {
     console.log(`Server started at PORT : ${PORT}`);
+    await connectToDB();
+    console.log('Successfully connected to DB')
 })
