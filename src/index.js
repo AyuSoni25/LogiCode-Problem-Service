@@ -6,6 +6,7 @@ const { PORT } = require('./config/server.config')
 
 const apiRouter = require('./routes')
 const connectToDB = require('./config/db.config')
+const errorHandler = require('./utils/errorHandler')
 const app = express()
 
 // Specifying the type of requests which can come to server, so that it can know how to handle the request.
@@ -20,6 +21,9 @@ app.use('/api', apiRouter);
 app.get('/ping', (req, res)=>{
     return res.json({message: 'Problem Service is alive.'})
 })
+
+// last middleware if any error comes
+app.use(errorHandler);
 
 // Listening to the defined PORT 
 app.listen(PORT, async() => {
