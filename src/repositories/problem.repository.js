@@ -2,7 +2,7 @@ const { Problem }  = require('../models')
 
 class ProblemRepository {
     async createProblem(problemData){
-        try{
+        try {
             const problem = await Problem.create({
                 title: problemData.title,
                 description: problemData.description,
@@ -10,7 +10,17 @@ class ProblemRepository {
             });
     
             return problem;
-        } catch(e){
+        } catch(e) {
+            console.log(e);
+            throw e;
+        }
+    }
+
+    async getAllProblems(){
+        try {
+            const problems = await Problem.find({});
+            return problems;
+        } catch(e) {
             console.log(e);
             throw e;
         }
