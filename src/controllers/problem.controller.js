@@ -1,4 +1,3 @@
-const NotImplementedError = require('../errors/notImplemented.error');
 const { ProblemService } = require('../services');
 const { ProblemRepository } = require('../repositories');
 const { StatusCodes } = require('http-status-codes');
@@ -51,17 +50,29 @@ async function getProblems(req, res, next){
     }
 }
 
-function deleteProblem(req, res, next){
+async function deleteProblem(req, res, next){
     try{
-        throw new NotImplementedError('Delete Problem')
+        const deletedProblem = await problemService.deleteProblem(req.params.id);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: `Successfully deleted the problem with id: ${req.params.id}`,
+            error: {},
+            data: deletedProblem
+        })
     } catch(e) {
         next(e);
     }
 }
 
-function updateProblem(req, res, next){
+async function updateProblem(req, res, next){
     try{
-        throw new NotImplementedError('Update Problem')
+        const updatedProblem = await problemService.updateProblem(req.params.id, req.body);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: `Successfully updated the problem with id: ${req.params.id}`,
+            error: {},
+            data: updatedProblem
+        })
     } catch(e) {
         next(e);
     }

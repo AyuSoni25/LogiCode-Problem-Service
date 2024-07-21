@@ -37,6 +37,26 @@ class ProblemService {
             throw e;
         }
     }
+
+    async deleteProblem(id){
+        try {
+            const problem = await this.problemRepository.deleteProblem(id);
+            return problem;
+        } catch(e) {
+            console.log(e);
+            throw e;
+        }
+    }
+
+    async updateProblem(id, problemData){
+        try {
+            const problem = await this.problemRepository.updateProblem(id, problemData);
+            return problem;
+        } catch(e) {
+            console.log(e);
+            throw e;
+        }
+    }
 }
 
 module.exports = ProblemService
