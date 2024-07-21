@@ -6,56 +6,34 @@ class ProblemService {
     }
 
     async createProblem(problemData){
-        try{
-            // 1. Sanitize the markdown for description
-            problemData.description = markdownSanitizer(problemData.description);
+        // 1. Sanitize the markdown for description
+        problemData.description = markdownSanitizer(problemData.description);
 
-            const problem =  await this.problemRepository.createProblem(problemData);
-            return problem;
-        } catch(e){
-            console.log(e);
-            throw e;
-        }
+        const problem =  await this.problemRepository.createProblem(problemData);
+        return problem;
     }
 
     async getAllProblems(){
-        try {
-            const problems = await this.problemRepository.getAllProblems();
-            return problems;
-        } catch(e) {
-            console.log(e);
-            throw e;
-        }
+        const problems = await this.problemRepository.getAllProblems();
+        return problems;
     }
 
     async getProblem(id){
-        try {
-            const problem = await this.problemRepository.getProblem(id);
-            return problem;
-        } catch(e) {
-            console.log(e);
-            throw e;
-        }
+        const problem = await this.problemRepository.getProblem(id);
+        return problem;
+
     }
 
     async deleteProblem(id){
-        try {
-            const problem = await this.problemRepository.deleteProblem(id);
-            return problem;
-        } catch(e) {
-            console.log(e);
-            throw e;
-        }
+        const problem = await this.problemRepository.deleteProblem(id);
+        return problem;
+       
     }
 
     async updateProblem(id, problemData){
-        try {
-            const problem = await this.problemRepository.updateProblem(id, problemData);
-            return problem;
-        } catch(e) {
-            console.log(e);
-            throw e;
-        }
+        const problem = await this.problemRepository.updateProblem(id, problemData);
+        return problem;
+  
     }
 }
 
