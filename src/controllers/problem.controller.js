@@ -1,45 +1,78 @@
+const { ProblemService } = require('../services');
+const { ProblemRepository } = require('../repositories');
 const { StatusCodes } = require('http-status-codes');
-const NotImplementedError = require('../errors/notImplemented.error');
+
+const problemService = new ProblemService(new ProblemRepository());
 
 function pingProblemController(req, res){
     return res.json({message: 'Problem Controller is up'});
 }
 
-function addProblem(req, res, next){
+async function addProblem(req, res, next){
     try{
-        throw new NotImplementedError('Add Problem')
+        const newProblem = await problemService.createProblem(req.body);
+        return res.status(StatusCodes.CREATED).json({
+            success: true,
+            message: 'Successfully created a new problem',
+            error: {},
+            data: newProblem
+        });
     } catch(e) {
         next(e);
     }
 }
 
-function getProblem(req, res, next){
+async function getProblem(req, res, next){
     try{
-        throw new NotImplementedError('Get Problem')
+        const problem = await problemService.getProblem(req.params.id);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: `Successfully fetched the problem with id: ${req.params.id}`,
+            error: {},
+            data: problem
+        })
     } catch(e) {
         next(e);
     }
 }
 
-function getProblems(req, res, next){
+async function getProblems(req, res, next){
     try{
-        throw new NotImplementedError('Get Problems')
+        const problems = await problemService.getAllProblems();
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: 'Successfully fetched all the problems',
+            error: {},
+            data: problems
+        });
     } catch(e) {
         next(e);
     }
 }
 
-function deleteProblem(req, res, next){
+async function deleteProblem(req, res, next){
     try{
-        throw new NotImplementedError('Delete Problem')
+        const deletedProblem = await problemService.deleteProblem(req.params.id);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: `Successfully deleted the problem with id: ${req.params.id}`,
+            error: {},
+            data: deletedProblem
+        })
     } catch(e) {
         next(e);
     }
 }
 
-function updateProblem(req, res, next){
+async function updateProblem(req, res, next){
     try{
-        throw new NotImplementedError('Update Problem')
+        const updatedProblem = await problemService.updateProblem(req.params.id, req.body);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message: `Successfully updated the problem with id: ${req.params.id}`,
+            error: {},
+            data: updatedProblem
+        })
     } catch(e) {
         next(e);
     }
